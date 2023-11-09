@@ -7,7 +7,7 @@ import through from 'through2';
 
 const main = async () => {
     const inputs = parseInputs();
-  
+
     const commits = await getCommits(inputs.tag);
     core.debug(commits);
 
@@ -32,9 +32,9 @@ const main = async () => {
 const parseInputs = () => {
     return {
         token: core.getInput('token') || process.env.GITHUB_TOKEN,
-        repoRegex: core.getInput('repo-regex'),
-        deploymentIdRegex: core.getInput('deployment-id-regex'),
-        tag: core.getInput('tag') || "deployed",
+        repoRegex: core.getInput('repo-regex') || 'deploy ([a-zA-Z0-9-]+)',
+        deploymentIdRegex: core.getInput('deployment-id-regex') || '\\[([0-9]+)\\]',
+        tag: core.getInput('tag') || 'deployed',
     };
 };
 
@@ -80,7 +80,7 @@ const run = async (cmd, args) => {
 const getCommits = async (tag) => {
     const cmd = `git`;
     const range = `${tag}..HEAD`;
-    const args = ['log', range, `--format={{filter:%B}}online//`].filter((s) => {
+    const args = ['log', range, `--format={{filter:%B}}%s//`].filter((s) => {
       return s !== '';
     });
     const result = await run(cmd, args);
