@@ -6,24 +6,26 @@ This action retrieves the new commits since a specific tag, parses the commits f
 
 ### `token`
 
-**Required** The github token to be used to make the deployment status update api requests. Default `"${{ github.token }}"`.
+**Required** The github token to be used to make the deployment status update api requests (needs access to the other repos). Default `"${{ github.token }}"`.
 
 ### `repo-regex`
 
 **Required** The regex to match the repo for the deployment status update. Default `"deploy (\w+)"`.
 
-## `repo-regex`
+### `repo-regex`
 
 **Required** The regex to match the repo for the deployment status update. Default `"deploy (\w+)"`.
 
-## `tag`
+### `tag`
 
 **Required** The tag to use for getting the unreleased commits. Default `"deployed"`.
 
 
 ## Outputs
 
-### 
+### `count`
+
+The number of deployment status updates that were made.
 
 ## Example usage
 
@@ -39,14 +41,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+            ref: ${{ github.event.status.sha }}
             fetch-depth: 0
       - uses: notz/update-deployment-status-by-unreleased-commits@main
         id: deployment-status
         with:
-            repo-regex: 'Deploy (\w+)'
+            token: ${{ secrets.DEPLOYMENT_UPDATE_TOKEN }}
+            repo-regex: 'Deploy ([a-z-]+)'
             deployment-id-regex: '\[([0-9]+)\]'
             tag: 'deployed'
       - name: Tag Repo
+        if: ${{ steps.deployment-status.outputs.count > 0 && success() }}
         uses: richardsimko/update-tag@v1
         with:
           tag_name: deployed
