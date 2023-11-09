@@ -5,12 +5,6 @@ import { execFile } from 'child_process';
 import { Readable } from 'stream';
 import through from 'through2';
 
-try {
-    await main();
-} catch (error) {
-    core.setFailed(error.message);
-}
-
 const main = async () => {
     const inputs = parseInputs();
   
@@ -111,3 +105,9 @@ const updateDeploymentStatus = async (octokit, repo, deployment_id, state, auto_
     const resp = await octokit.request('POST /repos/{owner}/{repo}/deployments/{deployment_id}/statuses', req);
     core.debug(JSON.stringify(resp));
 };
+
+try {
+    await main();
+} catch (error) {
+    core.setFailed(error.message);
+}

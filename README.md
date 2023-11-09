@@ -1,6 +1,6 @@
 # Github action to update deployment status by unreleased commits
 
-This action retrieves the new commits since a specific tag, parses the commits for a specific format and updates the deployment status for all matching commits. This action is designed to use with [[fluxcd]] and github commit status notification provider.
+This action retrieves the new commits since a specific tag, parses the commits for a specific format and updates the deployment status for all matching commits. This action is designed to use with [fluxcd](https://fluxcd.io) and [github commit status notification provider](https://fluxcd.io/flux/monitoring/alerts/#git-commit-status).
 
 ## Inputs
 
@@ -40,7 +40,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
             fetch-depth: 0
-      - uses: notz/update-deplyoment-status-by-unreleased-commits
+      - uses: notz/update-deployment-status-by-unreleased-commits@main
+        id: deployment-status
         with:
             repo-regex: 'Deploy (\w+)'
             deployment-id-regex: '\[([0-9]+)\]'
