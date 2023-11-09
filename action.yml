@@ -1,0 +1,25 @@
+name: 'Update deployment status by unreleased commits'
+description: 'Updates the status of deployments based on unreleased commits in a repo'
+inputs:
+  token:
+    description: 'The github token to use for making requests'
+    required: true
+    default: "${{ github.token }}"
+  repo-regex:
+    description: 'The regex to use for matching repos name in the commit message'
+    required: true
+    default: 'deploy ([a-zA-Z0-9-]+)'
+  deployment-id-regex:
+    description: 'The regex to use for matching deployment id in the commit message'
+    required: true
+    default: '\[([0-9]+)\]'
+  tag:
+    description: 'The tag to use for getting the unreleased commits'
+    required: true
+    default: 'deployed'
+outputs:
+  count:
+    description: 'The number of processed deployment status updates'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

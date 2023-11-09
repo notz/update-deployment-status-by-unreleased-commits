@@ -1,0 +1,27 @@
+{
+  "name": "update-deployment-status-by-unreleased-commits",
+  "version": "1.0.0",
+  "description": "Updates the status of deployments based on unreleased commits in a repo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/notz/update-deployment-status-by-unreleased-commits.git"
+  },
+  "keywords": [],
+  "author": "Gernot Pansy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/notz/update-deployment-status-by-unreleased-commits/issues"
+  },
+  "homepage": "https://github.com/notz/update-deployment-status-by-unreleased-commits#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0",
+    "@vercel/ncc": "^0.38.1",
+    "stream": "^0.0.2",
+    "through2": "^4.0.2"
+  }
+}
