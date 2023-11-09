@@ -46,10 +46,10 @@ const main = async () => {
 
 const parseInputs = () => {
     return {
-        token: getInput('token') || process.env.GITHUB_TOKEN,
-        repoRegex: getInput('repo-regex'),
-        deploymentIdRegex: getInput('deployment-id-regex'),
-        tag: getInput('tag') || "deployed",
+        token: core.getInput('token') || process.env.GITHUB_TOKEN,
+        repoRegex: core.getInput('repo-regex'),
+        deploymentIdRegex: core.getInput('deployment-id-regex'),
+        tag: core.getInput('tag') || "deployed",
     };
 };
 
