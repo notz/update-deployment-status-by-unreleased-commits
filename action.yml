@@ -21,5 +21,5 @@ outputs:
   count:
     description: 'The number of processed deployment status updates'
 runs:
-  using: 'node20'
-  main: 'dist/index.js'
+  using: docker
+  image: Dockerfile
