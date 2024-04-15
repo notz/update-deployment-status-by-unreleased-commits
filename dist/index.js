@@ -21,6 +21,7 @@ const github = __nccwpck_require__(5438);
 
 
 const main = async () => {
+    core.debug("starting action");
     const inputs = parseInputs();
 
     const commits = await getCommits(inputs.tag);
@@ -40,6 +41,8 @@ const main = async () => {
             count++;
         }
     });
+
+    core.debug("finished action - count: " + count);
   
     core.setOutput('count', count);
 };
