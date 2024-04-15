@@ -7,4 +7,4 @@ RUN mkdir -p /app
 
 COPY dist/. /app/
 
-ENTRYPOINT ["/bin/sh", "-c" , "git config --global --add safe.directory /github/workspace && node /app/index.js"]
+ENTRYPOINT ["/bin/sh", "-c" , "git config --global --add safe.directory /github/workspace && pwd && ls -l /github/workspace/.git && node /app/index.js"]
